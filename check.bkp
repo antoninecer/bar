@@ -1,0 +1,58 @@
+<html>
+   
+   <head>
+      <title>Zjisteni opravnenosti vyvezeni odpadu</title>
+	  <link rel="icon" href="img/monitor.png">
+      <meta charset="UTF-8">
+
+   </head>
+   <body>
+	<h1>Svoz popelnic</h1>
+<?php
+#include('menu.php');
+   require_once('./inc/connect.php');
+	 #session_start();
+   if (isset($_GET['id'])) {
+	$id =  htmlspecialchars($_GET["id"]);
+	$sql="select v.ulice,v.cislop,v.cisloo,o.id,o.rok from vchody v left outer join odpad o on v.id=o.id_vchod where v.id=$id";
+	#echo $sql."<br>";
+	$rok=date("Y");
+	$mesic=date("m");
+	$adresa="Neevidovano";
+	$lonska=0;
+	$letosni=0;
+	$result = mysqli_query($link,$sql);
+	if($result = mysqli_query($link, $sql)){
+		if(mysqli_num_rows($result) > 0){
+			while($row = mysqli_fetch_array($result)){
+				if($row['rok']!=null and $row['rok']==$rok-1){ 
+					$lonska=1;
+				} 
+				elseif($row['rok']!=null and $row['rok']==$rok){
+					$letosni=1;
+				}
+				$adresa=$row['ulice']." ".$row['cisloo']."/".$row['cislop'];
+				#print_r($row);
+			}
+		}
+		if ($mesic>=4 and $letosni==0){
+		echo "<h2>".$adresa." : Nezaplaceno</h2> <br>";
+			echo "<img src='img/no.png' alt='NE' width='400' height='400'>";
+			#echo "<img src='img/no.png' alt='NE'>";
+		} elseif (($mesic<4 and $lonska==1)or($mesic>=4 and $letosni==1)) {
+			echo "<h2>:".$adresa." : Zaplaceno</h2><br> ";
+			echo "<img src='img/yes.png' alt='ANO'>";
+			#echo "<img src='img/yes.png' alt='ANO' width='400' height='400'>";
+		} else {
+			echo "<h2>".$adresa." : Nemá evidovánu platbu na aktuální období</h2> <br>";
+			#echo "<img src='img/no.png' alt='NE' >";
+			echo "<img src='img/no.png' alt='NE' width='400' height='400'>";
+		}
+		echo "<br>";
+	}
+   } else {
+	   echo "musite nacist QR kod z popelnice";
+   }
+?>
+   </body>
+</html>
