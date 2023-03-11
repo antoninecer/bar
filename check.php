@@ -1,19 +1,28 @@
 <html>
 <?php
+$hlavicka="Zjisteni QR";
 require_once('./inc/connect.php');
 include ('kolackologin.php');
 include ('head.php');
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST['typ'] == "pichacky" ) {
-echo "POST <br>";
-		print_r($_POST);
-echo "<br>Session <br>";
-print_r($_SESSION);						
+			#echo "POST <br>";
+			#print_r($_POST);
+			#echo "<br>Session <br>";
+			#print_r($_SESSION);						
+			$stav = ($_POST['stav']);
 			$kid=kid($_POST['klub']);
-      $sqli = "insert into pichacky (klub_id,umelec_id,cas,stav) values (".$kid.",".$_SESSION['user_id'].",now(),'start')";
+      $sqli = "insert into pichacky (klub_id,umelec_id,cas,stav) values (".$kid.",".$_SESSION['user_id'].",now(),'".$stav."')";
       #echo $sqli;
 			echo insert($sqli);
+			if ($stav == 'stop') { 
+				unset($_COOKIE['klub_id']); 
+				setcookie('klub_id',$kid, time() - 3600, '/',null,null,true);
+			} elseif($stav == 'start') {
+				$rok=new datetime('+1 year');
+				setcookie('klub_id',$kid,$rok->getTimestamp(),'/',null,null,true);
+			}
 		}
 }
 ?>

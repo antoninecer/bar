@@ -6,9 +6,22 @@ include ('head.php');
 
 echo " <body>";
 include ('menu.php');
-
+print_r($_SESSION);
 echo "	<h1>Vypis z uctu</h1>";
-
+#nacteni predchozich uctenek
+# id | umelec_id | cas                 | barman_id |
+$sql="select * from uctenka where umelec_id=".$_SESSION['user_id'];
+$result = mysqli_query($link,$sql);                                         
+if($result = mysqli_query($link, $sql)){                              
+  if(mysqli_num_rows($result) > 0){
+		echo "<table><tr><th>#id</th><th align='left'>vystavena</td></tr>";                             
+    while($row = mysqli_fetch_array($result)){                              
+      echo "<tr><td><a href='doklad.php?id=".$row['id']."'>".$row['id']."</a></td><td>".$row['cas']."</td></tr>";
+    }
+		echo "</table><hr>";
+  }
+}      
+ 
 #nacteni jestli je umelec prihlaseny, aby se mu mohlo tizit na ucet  
 $sql = "select p.cas, p.stav from pichacky p join kluby k on p.klub_id=k.id where umelec_id=".$_SESSION['user_id']." and k.id='".$_SESSION['klub_id']."' order by p.id desc limit 1" ;
 #echo $sql; 
@@ -33,7 +46,7 @@ if ($poslednistav=='stop' || $poslednistav=='') {
 } 
 #kdyz je umelec prihlasen pujde tizit
 if ($poslednistav=='start') {
-  echo "<h2>Umělec je přihlášen od ".$datumposlednihostavu."</h2>";
+  #echo "<h2>Umělec je přihlášen od ".$datumposlednihostavu."</h2>";
 #id | klub_id | barman_id | umelec_id | polozka_id | popis                    | cas                 | castka | mena | doklad 
 $sql="select * from provize where klub_id=".$_SESSION['klub_id']." and umelec_id=".$_SESSION['user_id']." and cas >='".$datumposlednihostavu."'";
 $celkem=0;
@@ -53,7 +66,7 @@ if($result = mysqli_query($link, $sql)){
 		echo "Celkem:".$celkem.$mena;                                                  
   }                                                           
 }                 
-
+include('checkumelec.php');
 }
 ?>
    </body>

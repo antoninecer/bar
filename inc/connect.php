@@ -23,7 +23,7 @@ function safe_b64decode($string) {
 function kid($klub)
 {
 	global $link;
-  $kid="select id from kluby where zkratka='".$_POST['klub']."'";                                                                                                              
+  $kid="select id from kluby where zkratka='".$klub."'";                                                                                                              
   $kr = $link->query($kid);
   if ($kr->num_rows > 0) {
 		while($row = $kr->fetch_assoc()) {
