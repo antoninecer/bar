@@ -6,6 +6,7 @@
 		// server should keep session data for seconds 3600=1hour
 		ini_set('session.gc_maxlifetime', 36000);
 		// each client should remember their session id for EXACTLY 10 hour
+
 		session_set_cookie_params(36000);
     session_start(); 
     } 

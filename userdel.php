@@ -4,7 +4,7 @@
 	$navrat=FALSE;
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
       // username and password sent from form $_POST['active'].",".$_POST['admin']
-		if ($_SESSION['admin'] == 'Y') {
+		if ($_SESSION['admin'] == 'Y'|| $_SESSION['admin'] == 'S') {
 			$sql = "delete from users  where id = ".$_GET['id'];
 			if ($link->query($sql) === TRUE) {
 				$_SESSION['error'] =  "Record deleted successfully";
@@ -26,14 +26,20 @@
 		?>
 		<h1 align="center">Smazání uživatele ?</h1>
 		<?php
-		$sql = "SELECT id, username FROM users where id = ".$_GET['id'];
+		$w='';
+		if ($_SESSION['admin'] == 'S') {
+			$w=" and club='".$_SESSION['klub']."'";
+		}
+		$sql = "SELECT id, username FROM users where id = ".$_GET['id'].$w;
 		$result = $link->query($sql);
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 			$user = $row["id"]. " : " . $row["username"];
 			echo "<center><h2>".$user."</h2></center> <br>";
-			}
-		}	
+			} 
+			
+		}	else { header('Location: users.php'); }                                                                                                                                
+                                               
 		?>
 		<div align = "center">
          <div style = "width:300px; border: solid 1px #333333; " align = "left">

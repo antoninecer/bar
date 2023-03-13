@@ -37,7 +37,7 @@
 
 
 	   echo "<table align='center' border=0>";
-	   echo "<tr style='background-color: #e0e0eb'><td>Klub</td><td>Zkratka</td><td>kod</td><td>popis</td><td>kontakt</td><td>ulice</td><td>mesto</td><td>zeme</td>"; 
+	   echo "<tr style='background-color: #e0e0eb'><td>Klub</td><td>Zkratka</td><td>kod</td><td>popis</td><td>kontakt</td><td>ulice</td><td>mesto</td><td>zeme</td><td>měna</td>"; 
 #jestli je admin, nebo superuser zobraz sloupecek uprav
 		if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S' )){
 					echo "<td>uprav</td>";
@@ -69,6 +69,8 @@
 				echo "<td>".$row["ulice"]."</td>";
 				echo "<td>".$row["mesto"]."</td>";
 				echo "<td>".$row["zeme"]."</td>";
+				echo "<td>".$row["mena"]."</td>";
+
 				//echo "<td>".$row["admin"]."</td>";
 				if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S')){
 					echo "<td><a href='klubedit.php?id=".$row["id"]."'><img src='img/edit16.png' title='Password'></a></td>";
@@ -112,6 +114,19 @@
 				 <tr><td align="right">Ulice :</td><td align="left"><input type = "text" name = "ulice" /></td> </tr>
 				 <tr><td align="right">Město :</td><td align="left"><input type = "text" name = "mesto" /></td> </tr>
 				 <tr><td align="right">Země :</td><td align="left"><input type = "text" name = "zeme" /></td> </tr>
+				 <tr><td align="right">Měna :</td><td align="left">
+<select name="mena" id="mena">
+<?php
+	$sql="select * from meny order by mena";
+	$result = $link->query($sql);
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+				echo "<option value='".$row['mena']."'>".$row['mena']." - ".$row['popis']."</option>";
+			}
+		}
+?>
+</select>
+
 				  <input type="hidden" name="typ" value="ADD"> 
 
 				  <tr><td/><td align="right"><input type = "submit" value = " Potvrď "/>

@@ -11,7 +11,6 @@
 	if (isset($_GET['klub'])){
 		echo "<h2>Umělec: <i>".$_SESSION['login_user']."</i> načetl Klub: <i>".$_SESSION['klub']."</i></h2>";
 	}
-	$kid=$row['id'];
 	#}}}
 #  
 $sql = "select p.cas, p.stav from pichacky p join kluby k on p.klub_id=k.id where umelec_id=".$_SESSION['user_id']." and k.zkratka='".$klub."' order by p.id desc limit 1" ;

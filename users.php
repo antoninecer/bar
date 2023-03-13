@@ -30,10 +30,11 @@
 	   $radek = 0;
 	   echo "<table align='center' border=0>";
 	   echo "<tr style='background-color: #e0e0eb'><td>Username</td><td>klub</td><td>Email</td><td>Rights</td><td>Password</td>";
-	   if ($_SESSION['admin'] == 'Y') { echo "<td>Delete</td>"; }
+	   if ($_SESSION['admin'] == 'Y' ||$_SESSION['admin'] == 'S' ) { echo "<td>Delete</td>"; }
 	   echo "</tr>";
   		$w=""; 
- 	   if ($_SESSION['admin']=='S') { $w="where club='".$_SESSION['klub']."'"; }
+			
+		if ($_SESSION['admin']=='S') { $w="where club='".$_SESSION['klub']."'"; }
 
 	   $sql = "SELECT *  FROM users ".$w." order by username";
 	   #echo $sql;
@@ -69,10 +70,10 @@
 				}
 				echo "</td>";
 				//echo "<td>".$row["admin"]."</td>";
-				if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S' && $_SESSION['klub']==$row[club] )){
-					echo "<td><a href='userpwd.php?id=".$row["id"]."'><img src='img/edit16.png' title='Password'></a></td>";
+				if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S' )){
+					echo "<td><a href='useredit.php?id=".$row["id"]."'><img src='img/edit16.png' title='Edit user'></a></td>";
 				 } else {echo "<td></td>";}
-				if ($_SESSION['admin'] == 'Y') {
+				if ($_SESSION['admin'] == 'Y' || $_SESSION['admin'] == 'S') {
 				echo "<td>";
 				if ($row["username"] == $_SESSION['login_user']) {
 					echo "<img src='img/user16.png' title='Nelze smazat sebe sama' >";

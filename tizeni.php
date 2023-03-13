@@ -36,7 +36,7 @@ if($result = mysqli_query($link, $sql)){
  $sqli = "insert into provize (klub_id,barman_id,umelec_id,polozka_id,popis,cas,castka,mena) values (".$kid.",".$_SESSION['user_id'].",".$uid.",".$pid.",'".$popis."',now(),".$castka.",'".$mena."')";
       #echo $sqli;    
       echo "<h2 style='color:red;'>".insert($sqli)."</h2>";
-			header("Refresh: 4; URL=check.php?utyp=U&uid=".$uid."&klub=".$_SESSION['klub']); 
+			header("Refresh: 2; URL=check.php?utyp=U&uid=".$uid."&klub=".$_SESSION['klub']); 
 	}                 
 }                     
 $uid=$_GET['uid']; #umelec komu se bude tizit
@@ -83,6 +83,7 @@ if($result = mysqli_query($link, $sql)){
 } 
 echo "Na ucet umelce ".$uid." jde ".$popis." za ".$castka.$mena;
 
+ if($_SERVER["REQUEST_METHOD"] != "POST") {
 ?>
 
   <div style = "margin:30px">
@@ -96,7 +97,7 @@ echo "Na ucet umelce ".$uid." jde ".$popis." za ".$castka.$mena;
             </div>
 
 <?php
-
+}
                                                                                                                                        
 # $sqli = "insert into provize (klub_id,barman_id,umelec_id,polozka_id,popis,cas,castka,mena) values (".$_POST['kid'].",".$_SESSION['user_id'].",".$_POST['uid'].",".$_POST['pid'].",'".$popis."',now(),".$castka.",'".$mena."')";
 

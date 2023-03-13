@@ -11,7 +11,7 @@
 				$klub=$row['zkratka'];
 			}}
  		if ((($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S' && $_SESSION['klub']==$klub )) && ($_POST['typ']=='ADD')) {
-			$sql = "update kluby set klub ='".$_POST['klub']."', popis='".$_POST['popis']."',kontakt='".$_POST['kontakt']."',ulice='".$_POST['ulice']."',mesto='".$_POST['mesto']."',zeme='".$_POST['zeme']."' where id = ".$_GET['id'];
+			$sql = "update kluby set klub ='".$_POST['klub']."', popis='".$_POST['popis']."',kontakt='".$_POST['kontakt']."',ulice='".$_POST['ulice']."',mesto='".$_POST['mesto']."',zeme='".$_POST['zeme']."', mena='".$_POST['mena']."' where id = ".$_GET['id'];
 			#echo $sql;
 			if ($link->query($sql) === TRUE) {
 				echo "Record updated successfully";
@@ -62,6 +62,25 @@
 		<label>ulice:</label><br><input type = "text" name = "ulice" class = "box" value=<?php echo "\"".$ulice."\""; ?> /><br>
 		<label>Město:</label><br><input type = "text" name = "mesto" class = "box" value=<?php echo "\"".$mesto."\""; ?> /><br>
 		<label>Stát:</label><br><input type = "text" name = "zeme" class = "box" value=<?php echo "\"".$zeme."\""; ?> /><br>
+		<?php if ($_SESSION['admin'] == 'Y'){
+			echo "<label>Transakční provize:</label><br><input type = \"text\" name = \"fee\" class = \"box\" value=\"".$fee."\" /><br>";
+		}?>
+    <label>Měna :<label><br>                                 
+<select name="mena" id="mena">                                                              
+<?php     
+  $sql="select * from meny order by mena";                                                  
+  $result = $link->query($sql);                                                             
+    if ($result->num_rows > 0) {                                                            
+      while($row = $result->fetch_assoc()) {                                                
+        echo "<option value='".$row['mena']."'>".$row['mena']." - ".$row['popis']."</option>";
+      }   
+    }     
+?>        
+</select> 
+                
+
+
+
 		<input type="hidden" name="typ" value="ADD">
 		<input type = "submit" value = " Potvrď "/><br>
                </form>

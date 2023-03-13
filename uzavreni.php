@@ -7,38 +7,41 @@ include ('head.php');
  
 echo " <body>";
 include ('menu.php');
-  if($_SERVER["REQUEST_METHOD"] == "POST") {                                                                                                                                                                     
+  if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$lastid=0;
     if (($_SESSION['admin'] == 'B' || $_SESSION['admin'] == 'S') && $_POST['typ'] == "ADD" ) {
 			/* Start transaction */
-			$sql = "insert into uctenka(umelec_id,cas,barman_id) values (".$_POST['uid'].",now(),".$_SESSION['user_id'].")";
-			echo $sql;
-	    if ($link->query($sql) == TRUE) {
-				$sql = "select id from uctenka order by id desc limit 1";
-				$result = mysqli_query($link,$sql);
-				if($result = mysqli_query($link, $sql)){
-					if(mysqli_num_rows($result) > 0){
-						while($row = mysqli_fetch_array($result)){
-							$lastid=$row['id'];
+			if($_POST['celkem'] != '0') {
+#vloz na ucet umelce transakcni fee z klubu
+			fee($_POST['uid'],$_SESSION['user_id'],$_SESSION['klub_id']);			
+
+
+				$sql = "insert into uctenka(umelec_id,cas,barman_id) values (".$_POST['uid'].",now(),".$_SESSION['user_id'].")";
+				echo $sql;
+				if ($link->query($sql) == TRUE) {
+					$sql = "select id from uctenka order by id desc limit 1";
+					$result = mysqli_query($link,$sql);
+					if($result = mysqli_query($link, $sql)){
+						if(mysqli_num_rows($result) > 0){
+							while($row = mysqli_fetch_array($result)){
+								$lastid=$row['id'];
+							}
 						}
 					}
-				}
-				echo "lastid:".$lastid."<br>";
-				$id=json_decode($_POST['id']);
-				print_r($id);
-				foreach($id as $i) {
-					$sql ="update provize set doklad='".$lastid."' where id=".$i;
-					echo $sql."<br>";
-					$link->query($sql);
-				}
-				if($_POST['odhlaseni'] == 'odhlasit') {
-					$sql="insert into pichacky(klub_id,umelec_id,cas,stav) values (".$_POST['kid'].",".$_POST['uid'].",now(),'stop')";
-					echo $sql."<br>";
-					$link->query($sql);
-				}
+					echo "lastid:".$lastid."<br>";
+						$sql ="update provize set doklad='".$lastid."' where umelec_id=".$_POST['uid']." and doklad is null";
+						echo $sql."<br>";
+						$link->query($sql);
+			}
+			if($_POST['odhlaseni'] == 'odhlasit') {
+				$sql="insert into pichacky(klub_id,umelec_id,cas,stav) values (".$_POST['kid'].",".$_POST['uid'].",now(),'stop')";
+				echo $sql."<br>";
+				$link->query($sql);
 			}
 		}
-  }
+	header('Refresh: 4; URL=klubplace.php');	
+	}}
+  
 
 
 
@@ -103,6 +106,7 @@ if($result = mysqli_query($link, $sql)){
           <input type="hidden" name="id" value=<?php echo "'".json_encode($id)."'"; ?>>
           <input type="hidden" name="uid" value=<?php echo "'".$uid."'"; ?>>
           <input type="hidden" name="kid" value=<?php echo "'".$kid."'"; ?>>
+          <input type="hidden" name="celkem" value=<?php echo "'".$celkem."'"; ?>>
           <td align="right">Způsob uzavření:</td><td align="left">
           <select name="odhlaseni" id="odhlaseni" align="right">
           <option value="odhlasit">Odhlásit umělce</option>

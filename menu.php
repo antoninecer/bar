@@ -21,7 +21,11 @@
 </head>
 <body>
 <?php
+if (!isset($_SESSION)) {
 ini_set( "session.cookie_lifetime",0 );
+session_start();
+}
+
 
 ?>
 <script type="text/javascript">
@@ -49,13 +53,14 @@ if(isset($_SESSION['login_user']) ) { echo "<li ><b><i><a href='userpwd.php?id="
   }
 
   if ($_SESSION['admin'] == 'U') {
-# || $_SESSION['admin']=='S') {
 		echo "<li><a href='tips.php?id=".$_SESSION['user_id']."' title='Ukaz ucet'><img width='32' height='32' src='img/tips.png'></a></li>";
   }
 
+  if ($_SESSION['admin'] == 'B' || $_SESSION['admin']=='S') {
+		echo "<li><a href='klubplace.php' title='Přehled o dění'><img width='32' height='32' src='img/tips.png'></a></li>";
+  }
 
-
-   if ($_SESSION['admin'] == 'Y' || $_SESSION['admin'] == 'S') {
+  if ($_SESSION['admin'] == 'Y' || $_SESSION['admin'] == 'S') {
        
 	
    		echo "<li><a href='clubs.php' title='Kluby'><img width='32' height='32' src='img/nightlife.png'></a></li>";
@@ -71,7 +76,7 @@ if(isset($_SESSION['login_user']) ) { echo "<li ><b><i><a href='userpwd.php?id="
   <?php } ?>
    <li><a href = "logout.php" title="Login / Logout"><img width='32' height='32' src="img/changeuser.png"></a></li>
    <li><a href = "about.php" title="About application"><img width='32' height='32' src="img/help.png"></a></li> 
-   <li><a href = "pokus.php" title="Pokus"><img width='32' height='32' src="img/help.png"></a></li> 
+  <?php # <li><a href = "pokus.php" title="Pokus"><img width='32' height='32' src="img/help.png"></a></li>  ?>
    <li><div id="google_translate_element"></div></li>
 </ul>
 </div>

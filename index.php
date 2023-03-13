@@ -25,6 +25,9 @@ mysqli_close($link);
 <p> V tuto chvíli aplikaci testujeme, proto buďte prosím shovívaví, pokud se objeví nějaká chyba nebo něco nebude fungovat.
 <br>
  Naopak budeme velmi rádi, pokud nám případné technické problémy, kterých doufáme, že bude co nejméně, oznámíte a podrobně popíšete, za což vám předem děkujeme.
+<br>
+<a href="mailto:report@tancovani.com?subject=Problem report!&body=Application has a problem on page ..... when something">Report problem by mail</a>
+
 </p>
 </body>
 </html>

@@ -35,7 +35,7 @@ include('menu.php');
       $id = $row['id'];
       $admin = $row['admin'];
       $uklub = $row['club'];
-	  
+	    $kid = kid($uklub);
       
       $count = mysqli_num_rows($result);
       
@@ -46,7 +46,7 @@ include('menu.php');
          $_SESSION['user_id'] = $id;
 	 $_SESSION['admin'] = $admin;
 	 $_SESSION['klub'] = $uklub;
-
+	 $_SESSION['klub_id'] = $kid;	
   $ip = $_SERVER['HTTP_X_REAL_IP'];
    #echo "tva IP adresa:".$ip;
     $query = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
@@ -67,6 +67,7 @@ include('menu.php');
    $rok=new datetime('+1 year');
    setcookie('bar_username',$_SESSION['login_user'],$rok->getTimestamp(),'/',null,null,true);
    setcookie('bar_password',$decode,$rok->getTimestamp(),'/',null,null,true);
+   setcookie('klub_id',$kid,$rok->getTimestamp(),'/',null,null,true);
 
 
 

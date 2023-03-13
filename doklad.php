@@ -17,21 +17,24 @@
 	$sql="select * from provize where doklad=".$doklad;
 	#echo $sql;
 	$celkem=0;      
-	$mena="";       
+	$mena="";      
+	$uid=0;; 
 	$result = mysqli_query($link,$sql);                                         
 	if($result = mysqli_query($link, $sql)){                              
 		if(mysqli_num_rows($result) > 0){                             
-			echo "<table><tr><td>datum</td><td>popis</td><td>castka</td><td>mena</td></tr>";  
+			echo "<table><tr><td>datum</td><td>popis</td><td>částka</td><td>měna</td></tr>";  
                 
 			while($row = mysqli_fetch_array($result)){                              
-				echo "<tr><td>".$row['cas']."</td><td>".$row['popis']."</td><td>".$row['castka']."</td><td>".$row['mena']."</td></tr>";                                 
+				echo "<tr><td>".$row['cas']."</td><td>".$row['popis']."</td><td align='right'>".number_format($row['castka'],2,',','')."</td><td>".$row['mena']."</td></tr>";                                 
 				$celkem+=$row['castka'];
 				#print_r($row);
 				$mena=$row['mena'];
 				$kid=$row['klub_id'];
+				$uid=$row['umelec_id'];
 			}           
 			echo "</table><br>";       
-			echo "Celkem:".$celkem.$mena."<br><br>";                                                  
+echo "Celkem: <b>".number_format($celkem, 2, ',', '')."</b> ".$mena;			
+echo "<br><br>";                                                  
 		}                                                           
 	}
 	$sql="select * from kluby where id=".$kid;
@@ -43,6 +46,7 @@
 			}
 		}
 	}
+	echo "<br>Umělec: ".uname($uid);
 
 	echo "</body>";
 	echo "</html>";                 

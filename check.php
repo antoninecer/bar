@@ -41,16 +41,7 @@ if ($_SESSION['admin'] == 'B' && $utyp=='U') {
 
 
 if ($_SESSION['admin'] == 'S' && $utyp=='U') {
-	$sql="select * from users where id=".$uid;
-	#echo $sql."<br>";
-	
-	$result = mysqli_query($link,$sql);
-        if($result = mysqli_query($link, $sql)){
-                if(mysqli_num_rows($result) > 0){
-			while($row = mysqli_fetch_array($result)){
-	echo "<h2>Super User: ".$_SESSION['login_user']." nacetl umelce: ".$row['username']."</h2>";
-}}}
-echo " tady bude nevim co";
+	include('checksuperuser.php');
 
 
 }

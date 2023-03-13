@@ -2,30 +2,25 @@
 	include('session.php');
 	require_once('inc/connect.php');
 	if ($_SESSION['admin'] == 'Y'|| $_SESSION['admin']=='S') {
-		$error = "Úprava proviznich polozek";
+		$error = "Úprava provizních položek";
 	} else {
 		$error = "Na toto nemáte oprávnění!";
 		header('Location:index.php');
 	}
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		if (($_SESSION['admin'] == 'Y' || $_SESSION['admin'] == 'S') && $_POST['typ'] == "ADD" ) {
-			$kid="select id from kluby where zkratka='".$_POST['klub']."'";
-			$kr = $link->query($kid);
-                	if ($kr->num_rows > 0) {
-                        	while($row = $kr->fetch_assoc()) {
-					$klub_id=$row['id'];
-				}
-			}
+			$kid=kid($_POST['klub']);
 
-		$sql = "insert into proviznipolozky (klub_id,aktivni,obrazek,popis,castka,mena) values ('".$klub_id."',true,'".$_POST['obrazek']."','".$_POST['popis']."','".$_POST['castka']."','".$_POST['mena']."');";
-		echo $sql;
-		if ($link->query($sql) == TRUE) {
-			$_SESSION['error'] =  "Nový záznam přidán";
-		} else {
-			$_SESSION['error'] = "Error: ". $link->error;
-		}
-	} 
-    }
+			$mena=mena($kid);
+			$sql = "insert into proviznipolozky (klub_id,aktivni,obrazek,popis,castka,mena) values ('".$kid."',true,'".$_POST['obrazek']."','".$_POST['popis']."','".$_POST['castka']."','".$mena."');";
+			#echo $sql;
+			if ($link->query($sql) == TRUE) {
+				$_SESSION['error'] =  "Nový záznam přidán";
+			} else {
+				$_SESSION['error'] = "Error: ". $link->error;
+			}
+		} 
+  }
 ?>
 <html>  
    
@@ -38,12 +33,12 @@
 	   <?php
 	   $radek = 0;
 	   echo "<table align='center' border=0>";
-	   echo "<tr style='background-color: #e0e0eb'><td>Klub</td><td>Aktivni</td><td>obrazek</td><td>popis</td><td>castka</td><td>mena</td>"; 
-		if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S' && $_SESSION['klub'] )){
+	   echo "<tr style='background-color: #e0e0eb'><td>Klub</td><td>Aktivní</td><td>obrázek</td><td>popis</td><td>částka</td><td>měna</td>"; 
+		if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S')){
 					echo "<td>uprav</td>";
 				 } else {echo "<td></td>";}
-				if ($_SESSION['admin'] == 'Y') {
-				echo "<td>Smazat</td>";}
+				if ($_SESSION['admin'] == 'Y' || $_SESSION['admin'] == 'S') {
+				echo "<td>smazat</td>";}
 		   
 		   echo "</tr>";
 	   $w="";
@@ -66,13 +61,13 @@
 				echo "<td>".$row["aktivni"]."</td>";
         echo "<td><img src='".$row['obrazek']."'  width='32' height='32'  /></td>";
 				echo "<td>".$row["popis"]."</td>";
-				echo "<td>".$row["castka"]."</td>";
+				echo "<td align='right'>".$row["castka"]."</td>";
 				echo "<td>".$row["mena"]."</td>";
 				//echo "<td>".$row["admin"]."</td>";
-				if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S' && $_SESSION['klub']==$row[club] )){
+				if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S' )){
 					echo "<td><a href='polozkaedit.php?id=".$row["id"]."'><img src='img/edit16.png' title='Úprava položky'></a></td>";
 				 } else {echo "<td></td>";}
-				if ($_SESSION['admin'] == 'Y') {
+				if ($_SESSION['admin'] == 'Y' || $_SESSION['admin'] == 'S') {
 				echo "<td>";
 				    echo "<a href='polozkadel.php?id=".$row["id"]."'><img src='img/delete16.png' title='Smazat'></a>";
 					}
@@ -120,11 +115,6 @@ foreach ($images as $image){
 </td>
 				 <tr><td align="right">Popis</td><td align="left"><input type = "text" name = "popis" /></td> </tr>
 				 <tr><td align="right">Cástka</td><td align="left"><input name="castka" pattern="^\d*(\.\d{0,2})?$" />
-		 		 <tr><td align="right">Měna</td>
-<td align="left"><select name = "mena" />
-<option value='EUR' selected>EUR</option>";
-<option value='CZK'>CZK</option>";
-</select></td></tr>
 				  <input type="hidden" name="typ" value="ADD"> 
 				  <tr><td/><td align="right"><input type = "submit" value = " Potvrď "/>
 				  </td></tr>

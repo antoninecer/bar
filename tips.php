@@ -6,7 +6,7 @@ include ('head.php');
 
 echo " <body>";
 include ('menu.php');
-print_r($_SESSION);
+#print_r($_SESSION);
 echo "	<h1>Vypis z uctu</h1>";
 #nacteni predchozich uctenek
 # id | umelec_id | cas                 | barman_id |
@@ -14,9 +14,9 @@ $sql="select * from uctenka where umelec_id=".$_SESSION['user_id'];
 $result = mysqli_query($link,$sql);                                         
 if($result = mysqli_query($link, $sql)){                              
   if(mysqli_num_rows($result) > 0){
-		echo "<table><tr><th>#id</th><th align='left'>vystavena</td></tr>";                             
+		echo "<table><tr><th align='left'>vystavena</td></tr>";                             
     while($row = mysqli_fetch_array($result)){                              
-      echo "<tr><td><a href='doklad.php?id=".$row['id']."'>".$row['id']."</a></td><td>".$row['cas']."</td></tr>";
+      echo "<tr><td><a href='doklad.php?id=".$row['id']."'>".$row['cas']."</a></td></tr>";
     }
 		echo "</table><hr>";
   }
