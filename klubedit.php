@@ -11,7 +11,7 @@
 				$klub=$row['zkratka'];
 			}}
  		if ((($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S' && $_SESSION['klub']==$klub )) && ($_POST['typ']=='ADD')) {
-			$sql = "update kluby set klub ='".$_POST['klub']."', popis='".$_POST['popis']."',kontakt='".$_POST['kontakt']."',ulice='".$_POST['ulice']."',mesto='".$_POST['mesto']."',zeme='".$_POST['zeme']."', mena='".$_POST['mena']."' where id = ".$_GET['id'];
+			$sql = "update kluby set klub ='".$_POST['klub']."', popis='".$_POST['popis']."',kontakt='".$_POST['kontakt']."',ulice='".$_POST['ulice']."',mesto='".$_POST['mesto']."',zeme='".$_POST['zeme']."', mena='".$_POST['mena']."' , fee=".$_POST['fee']." where id = ".$_GET['id'];
 			#echo $sql;
 			if ($link->query($sql) === TRUE) {
 				echo "Record updated successfully";
@@ -46,6 +46,7 @@
 				$mesto=$row["mesto"];
 				$zeme=$row["zeme"];
 				$zkratka=$row["zkratka"];
+				$fee=$row['fee'];
 			echo "<center><h2>".$klub.":".$zkratka."</h2></center> <br>";
 			}
 		}	

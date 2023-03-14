@@ -23,7 +23,8 @@ function safe_b64decode($string) {
 function kid($klub)
 {
 	global $link;
-  $kid="select id from kluby where zkratka='".$klub."'";                                                                                                              
+  $klub_id=0;
+	$kid="select id from kluby where zkratka='".$klub."'";                                                                                                              
   $kr = $link->query($kid);
   if ($kr->num_rows > 0) {
 		while($row = $kr->fetch_assoc()) {
@@ -153,7 +154,8 @@ function select($sql)
 
 function appearance($property, $element)
 {
-    $sql = "select value from appearance where property='".$property."' and element='".$element."';";
+    $value='';
+		$sql = "select value from appearance where property='".$property."' and element='".$element."';";
     if($r = mysqli_query($GLOBALS['link'], $sql)){
 			if(mysqli_num_rows($r) > 0){
 				while($row = mysqli_fetch_array($r)){

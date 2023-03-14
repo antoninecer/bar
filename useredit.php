@@ -35,6 +35,7 @@
 		?>
 		<h1 align="center">Úprava uživatele </h1>
 		<?php
+			$w="";
 		if ($_SESSION['admin'] == 'S') {
       $w=" and club='".$_SESSION['klub']."'";
 		}
@@ -56,7 +57,7 @@
             <div style = "margin:30px">
                <form action = "" method = "post">
 		<label>Username:</label><br><input type = "text" name = "username" class = "box" value=<?php echo "\"".$username."\""; ?> /><br>
-		<label>Heslo:<br>(při nevyplnění zůstane heslo nezměněné)</label><br><input type = "password" name = "password" class = "box" value=<?php echo "\"".$castka."\""; ?> /><br>
+		<label>Heslo:<br>(při nevyplnění zůstane heslo nezměněné)</label><br><input type = "password" name = "password" class = "box" /><br>
 		<label>Email:</label><br><input type = "text" name = "email" class = "box" value=<?php echo "\"".$email."\""; ?> /><br>
 		<input type="hidden" name="typ" value="ADD">
 		<input type = "submit" value = " Potvrď "/><br>

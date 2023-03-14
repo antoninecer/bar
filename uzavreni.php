@@ -1,14 +1,14 @@
 <html>
 <?php                                                                                                                                                                                                                                                      
-include('inc/connect.php')
-;$hlavicka="Vypis z uctu";
+include('inc/connect.php');
+$hlavicka="Vypis z uctu";
 include ('kolackologin.php');
 include ('head.php');
  
 echo " <body>";
 include ('menu.php');
   if($_SERVER["REQUEST_METHOD"] == "POST") {
-		$lastid=0;
+		$doklad=0;
     if (($_SESSION['admin'] == 'B' || $_SESSION['admin'] == 'S') && $_POST['typ'] == "ADD" ) {
 			/* Start transaction */
 			if($_POST['celkem'] != '0') {
@@ -17,30 +17,34 @@ include ('menu.php');
 
 
 				$sql = "insert into uctenka(umelec_id,cas,barman_id) values (".$_POST['uid'].",now(),".$_SESSION['user_id'].")";
-				echo $sql;
+				#echo $sql;
 				if ($link->query($sql) == TRUE) {
 					$sql = "select id from uctenka order by id desc limit 1";
 					$result = mysqli_query($link,$sql);
 					if($result = mysqli_query($link, $sql)){
 						if(mysqli_num_rows($result) > 0){
 							while($row = mysqli_fetch_array($result)){
-								$lastid=$row['id'];
+								$doklad=$row['id'];
 							}
 						}
 					}
-					echo "lastid:".$lastid."<br>";
-						$sql ="update provize set doklad='".$lastid."' where umelec_id=".$_POST['uid']." and doklad is null";
-						echo $sql."<br>";
+					echo "lastid:".$doklad."<br>";
+						$sql ="update provize set doklad='".$doklad."' where umelec_id=".$_POST['uid']." and doklad is null";
+						#echo $sql."<br>";
 						$link->query($sql);
-			}
+			}}
 			if($_POST['odhlaseni'] == 'odhlasit') {
 				$sql="insert into pichacky(klub_id,umelec_id,cas,stav) values (".$_POST['kid'].",".$_POST['uid'].",now(),'stop')";
-				echo $sql."<br>";
+				#echo $sql."<br>";
 				$link->query($sql);
 			}
-		}
-	header('Refresh: 4; URL=klubplace.php');	
-	}}
+	
+	if($doklad == 0 ) {
+	header('Refresh: 2; URL=klubplace.php?id=');	
+  } else {
+	header('Refresh: 2; URL=doklad.php?id='.$doklad);	
+	}
+}}
   
 
 

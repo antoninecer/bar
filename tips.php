@@ -10,7 +10,8 @@ include ('menu.php');
 echo "	<h1>Vypis z uctu</h1>";
 #nacteni predchozich uctenek
 # id | umelec_id | cas                 | barman_id |
-$sql="select * from uctenka where umelec_id=".$_SESSION['user_id'];
+#ukaz kunde jen uctenky za poslednich 12 hodin
+$sql="select * from uctenka where umelec_id=".$_SESSION['user_id']." and TIMESTAMPDIFF(MINUTE,cas,now()) < 720";
 $result = mysqli_query($link,$sql);                                         
 if($result = mysqli_query($link, $sql)){                              
   if(mysqli_num_rows($result) > 0){
@@ -48,7 +49,7 @@ if ($poslednistav=='stop' || $poslednistav=='') {
 if ($poslednistav=='start') {
   #echo "<h2>Umělec je přihlášen od ".$datumposlednihostavu."</h2>";
 #id | klub_id | barman_id | umelec_id | polozka_id | popis                    | cas                 | castka | mena | doklad 
-$sql="select * from provize where klub_id=".$_SESSION['klub_id']." and umelec_id=".$_SESSION['user_id']." and cas >='".$datumposlednihostavu."'";
+$sql="select * from provize where klub_id=".$_SESSION['klub_id']." and umelec_id=".$_SESSION['user_id']." and doklad is null";
 $celkem=0;
 $mena="";
 $result = mysqli_query($link,$sql);                                         

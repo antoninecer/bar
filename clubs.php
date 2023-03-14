@@ -9,7 +9,7 @@
 	}
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
     if (($_SESSION['admin'] == 'Y' ) && $_POST['typ'] == "ADD" ) {
-		$sql = "insert into kluby (klub,zkratka,kod,popis,kontakt,ulice,mesto,zeme) values ('".$_POST['klub']."','".$_POST['zkratka']."','".$_POST['kod']."','".$_POST['popis']."','".$_POST['kontakt']."','".$_POST['ulice']."','".$_POST['mesto']."','".$_POST['zeme']."');";
+		$sql = "insert into kluby (klub,zkratka,kod,popis,kontakt,ulice,mesto,zeme,mena) values ('".$_POST['klub']."','".$_POST['zkratka']."','".$_POST['kod']."','".$_POST['popis']."','".$_POST['kontakt']."','".$_POST['ulice']."','".$_POST['mesto']."','".$_POST['zeme']."','".$_POST['mena']."');";
 		//echo $sql;
 		if ($link->query($sql) == TRUE) {
 			$_SESSION['error'] =  "Nový záznam přidán";
@@ -22,6 +22,7 @@
 <html>  
    
 <?php
+	$hlavicka="Kluby";
 	include('head.php');
 ?>
 <body>   
