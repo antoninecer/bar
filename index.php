@@ -26,7 +26,7 @@ mysqli_close($link);
 <br>
  Naopak budeme velmi rádi, pokud nám případné technické problémy, kterých doufáme, že bude co nejméně, oznámíte a podrobně popíšete, za což vám předem děkujeme.
 <br>
-<a href="mailto:report@tancovani.com?subject=Problem report!&body=Application has a problem on page ..... when something">Report problem by mail</a>
+<a href="mailto:report@tancovani.com?subject=Problem report!&body=Application has a problem on page ..... when something">Oznámit problém emailem</a>
 
 </p>
 </body>
