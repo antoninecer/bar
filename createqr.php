@@ -12,7 +12,7 @@ $utyp=isset($_SESSION['admin'])? $_SESSION['admin'] : 0;
 $uid=isset($_SESSION['user_id'])? $_SESSION['user_id'] : 0;
 $klub=isset($_SESSION['klub'])? $_SESSION['klub'] : 0;
 
-$data = isset($_GET['data']) ? $_GET['data'] : 'http://v.nanavsi.com/bar/check.php?utyp='.$utyp.'&uid='.$uid.'&klub='.$klub;
+$data = isset($_GET['data']) ? $_GET['data'] : 'https://'.$_SERVER['SERVER_NAME'].'/check.php?utyp='.$utyp.'&uid='.$uid.'&klub='.$klub;
 $size = isset($_GET['size']) ? $_GET['size'] : '500x500';
 $logo = isset($_GET['logo']) ? $_GET['logo'] : 'img/tancovani_bez.png';
 

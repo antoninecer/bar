@@ -79,9 +79,6 @@ include('menu.php');
 ?>
 		<style>
 			body {
-				<?php 
-				$background = appearance('login','background');
-				echo "background-image: url(\"".$background."\");"; ?>
 				background-color: #cccccc;
 			}	
 		</style>
