@@ -38,13 +38,13 @@
 
 
 	   echo "<table align='center' border=0>";
-	   echo "<tr style='background-color: #e0e0eb'><td>Klub</td><td>Zkratka</td><td>kod</td><td>popis</td><td>kontakt</td><td>ulice</td><td>mesto</td><td>zeme</td><td>měna</td>"; 
+	   echo "<tr style='background-color: #e0e0eb'><td>klub</td><td>zkratka</td><td>kód</td><td>popis</td><td>kontakt</td><td>ulice</td><td>město</td><td>země</td><td>měna</td>"; 
 #jestli je admin, nebo superuser zobraz sloupecek uprav
 		if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S' )){
-					echo "<td>uprav</td>";
+					echo "<td>upravit</td>";
 				 } else {echo "<td></td>";}
 				if ($_SESSION['admin'] == 'Y') {
-				echo "<td>Smazat</td>";}
+				echo "<td>smazat</td>";}
 		   
 		   echo "</tr>";
 	   $w="";

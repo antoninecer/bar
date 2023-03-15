@@ -56,6 +56,10 @@ if(isset($_SESSION['login_user']) ) { echo "<li ><b><i><a href='userpwd.php?id="
 		echo "<li><a href='tips.php?id=".$_SESSION['user_id']."' title='Ukaz ucet'><img width='32' height='32' src='img/tips.png'></a></li>";
   }
 
+  if ($_SESSION['admin'] == 'Y') {
+		echo "<li><a href='klubreport.php' title='Report transakčních poplatků'><img width='32' height='32' src='img/tips.png'></a></li>";
+  }
+
   if ($_SESSION['admin'] == 'B' || $_SESSION['admin']=='S') {
 		echo "<li><a href='klubplace.php' title='Přehled o dění'><img width='32' height='32' src='img/tips.png'></a></li>";
   }

@@ -2,7 +2,7 @@
 	include('session.php');
 	require_once('inc/connect.php');
 	if ($_SESSION['admin'] == 'Y'|| $_SESSION['admin']=='S') {
-		$error = "Úprava provizních položek";
+		$error = "Přidání provizní položky klubu";
 	} else {
 		$error = "Na toto nemáte oprávnění!";
 		header('Location:index.php');
@@ -33,9 +33,9 @@
 	   <?php
 	   $radek = 0;
 	   echo "<table align='center' border=0>";
-	   echo "<tr style='background-color: #e0e0eb'><td>Klub</td><td>Aktivní</td><td>obrázek</td><td>popis</td><td>částka</td><td>měna</td>"; 
+	   echo "<tr style='background-color: #e0e0eb'><td>klub</td><td>obrázek</td><td>popis</td><td>částka</td><td>měna</td>"; 
 		if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S')){
-					echo "<td>uprav</td>";
+					echo "<td>upravit</td>";
 				 } else {echo "<td></td>";}
 				if ($_SESSION['admin'] == 'Y' || $_SESSION['admin'] == 'S') {
 				echo "<td>smazat</td>";}
@@ -58,7 +58,7 @@
 				  echo "<tr style='background-color:  #ffffff'>";
 				  }
 				echo "<td>".$row["klub"]."</td>";
-				echo "<td>".$row["aktivni"]."</td>";
+				#echo "<td>".$row["aktivni"]."</td>";
         echo "<td><img src='".$row['obrazek']."'  width='32' height='32'  /></td>";
 				echo "<td>".$row["popis"]."</td>";
 				echo "<td align='right'>".$row["castka"]."</td>";
@@ -89,7 +89,7 @@
 <?php if (($_SESSION['admin']=='Y') || ($_SESSION['admin']=='S')){?>	 <hr> 
 		 <div align = "center">
          <div style = "width:450px; border: solid 1px #333333; " align = "left">
-            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b> Přidání provizní položkyy klubu </b></div>
+            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b> Přidání provizní položky klubu </b></div>
 				
             <div style = "margin:30px">
                

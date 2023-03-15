@@ -25,12 +25,12 @@
 ?>
 <body>   
       <?php include('menu.php'); ?>
-	  <h2 align="center">Users</h2>
+	  <h2 align="center">Uživatelské účty</h2>
 	   <?php
 	   $radek = 0;
 	   echo "<table align='center' border=0>";
-	   echo "<tr style='background-color: #e0e0eb'><td>Username</td><td>klub</td><td>Email</td><td>Rights</td><td>Password</td>";
-	   if ($_SESSION['admin'] == 'Y' ||$_SESSION['admin'] == 'S' ) { echo "<td>Delete</td>"; }
+	   echo "<tr style='background-color: #e0e0eb'><td>uživatel</td><td>klub</td><td>email</td><td>oprávnění</td><td>upravit</td>";
+	   if ($_SESSION['admin'] == 'Y' ||$_SESSION['admin'] == 'S' ) { echo "<td>smazat</td>"; }
 	   echo "</tr>";
   		$w=""; 
 			

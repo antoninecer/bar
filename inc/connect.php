@@ -46,10 +46,10 @@ function insert($sql)
 	return $return;
 }
 
-function neuzavrene($kid,$uid,$datum)
+function neuzavrene($kid,$uid)
 {
 global $link;
-$sql="select * from provize where klub_id=".$kid." and umelec_id=".$uid." and cas >='".$datum."' and doklad is null";
+$sql="select * from provize where klub_id=".$kid." and umelec_id=".$uid." and doklad is null";
 $celkem=0;
 $mena="";
 #$result = mysqli_query($link,$sql);                                         

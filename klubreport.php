@@ -26,11 +26,11 @@ if (isset($_POST['mesic'])){
 }
 
 
-echo $sql;
+#echo $sql;
 $result = mysqli_query($link,$sql);                                         
 if($result = mysqli_query($link, $sql)){                              
   if(mysqli_num_rows($result) > 0){
-		echo "<table border=1><tr><th>obdobi</th><th>klub</th><th>popis</th><th>dokladů</th><th>celkem</th><th>mena</th></tr>";
+		echo "<table align='center' border=0><tr style='background-color: #e0e0eb'><th>období</th><th>klub</th><th>popis</th><th>dokladů</th><th>celkem</th><th>měna</th></tr>";
     while($row = mysqli_fetch_array($result)){                              
 			echo "<tr><td>".$row['obdobi']."</td><td>".$row['klub']."</td><td>".$row['popis']."</td><td>".$row['dokladu']."</td><td>".$row['celkem']."</td><td>".$row['mena']."</td></tr>";
     }
@@ -40,14 +40,14 @@ if($result = mysqli_query($link, $sql)){
 }      
 
 ?>
+<hr>
  <div align = "center">
-         <div style = "width:300px; border: solid 1px #333333; " align = "left">
-            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Report transakcnich poplatku</b></div>
+         <div style = "width:350px; border: solid 1px #333333; " align = "left">
+            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Report transakčních poplatků</b></div>
         
-            <div style = "margin:30px">
+            <div style = "margin:15px">
                <form action = "" method = "post">
-    <label>Rok :<label><br>                                 
-<select name="rok" id="rok">                                                              
+								<table><tr><td><label>Rok :<label></td><td><select name="rok" id="rok">                                                              
 <?php     
   $sql="select distinct(year(cas)) as rok from provize;";                                                  
   $result = $link->query($sql);                                                             
@@ -57,8 +57,8 @@ if($result = mysqli_query($link, $sql)){
       }   
     }     
 ?>        
-</select><br> 
-    <label>Měsíc :<label><br>                                 
+</select></td><td> 
+    <label>Měsíc :<label></td><td>                                 
 <select name="mesic" id="mesic">                                                                                                                                  
 <?php                                              
   $sql="select distinct(month(cas)) as mesic from provize;";                                                  
@@ -69,9 +69,8 @@ if($result = mysqli_query($link, $sql)){
       }                                            
     }                                              
 ?>                                                 
-</select> <br><br>                                         
-        
-    <input type = "submit" value = " Potvrď "/><br>
+</select> </td><td>    
+    <input type = "submit" value = " Potvrď "></td></tr></table>
                </form>
             </div>
          </div>

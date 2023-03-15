@@ -47,6 +47,7 @@
 				$zeme=$row["zeme"];
 				$zkratka=$row["zkratka"];
 				$fee=$row['fee'];
+				$mena=$row['mena'];
 			echo "<center><h2>".$klub.":".$zkratka."</h2></center> <br>";
 			}
 		}	
@@ -73,7 +74,9 @@
   $result = $link->query($sql);                                                             
     if ($result->num_rows > 0) {                                                            
       while($row = $result->fetch_assoc()) {                                                
-        echo "<option value='".$row['mena']."'>".$row['mena']." - ".$row['popis']."</option>";
+        echo "<option value='".$row['mena']."'";
+				if ($row['mena'] == $mena) { echo " selected";}
+				echo ">".$row['mena']." - ".$row['popis']."</option>";
       }   
     }     
 ?>        
