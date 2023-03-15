@@ -23,7 +23,7 @@ if(mysqli_num_rows($result) > 0){
 		echo "</table>";
   }
 }      
-echo "<hr>Seznam nevypořádaných položek";
+echo "<hr>Seznam nevypořádaných položek:";
 $sql="select k.klub,p.popis, p.cas, p.castka,p.mena from provize p join kluby k on p.klub_id=k.id where p.umelec_id=".$_SESSION['user_id']." and p.doklad is null order by k.klub,p.id"; 
 #| klub | popis     | cas                 | castka | mena |
 
