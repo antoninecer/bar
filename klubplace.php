@@ -6,6 +6,9 @@ include ('head.php');
 
 echo " <body>";
 include ('menu.php');
+if ($_SESSION['admin']=='S'){                                                                                                                                                      
+    echo "<a href='klubreport.php' title='Report transakčních poplatků'>Report transakčních poplatků/docházky umělců<img width='32' height='32' src='img/tips.png'></a></li>";
+}
 echo "<h2>Umělci v klubu:</h2>";
 $sql="select p.umelec_id,max(p.cas) as cas,u.username,max(p.id) as max from pichacky p join users u on p.umelec_id=u.id where klub_id=".$_SESSION['klub_id']." group by p.umelec_id,u.username";
 #select p.umelec_id,p.stav,p.cas,u.username from pichacky p join users u on p.umelec_id=u.id  where klub_id=".$_SESSION['klub_id']." group by umelec_id having max(p.id)";
@@ -35,7 +38,8 @@ if ($_SESSION['admin']=='S'){
 			}                                          
 			echo "</table><hr>";                       
 		}                                            
-	}                                              
+	}                                             
+ 
 }
 
 ?>

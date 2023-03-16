@@ -80,7 +80,7 @@ if(isset($_SESSION['login_user']) ) { echo "<li ><b><i><a href='userpwd.php?id="
   <?php } ?>
    <li><a href = "logout.php" title="Login / Logout"><img width='32' height='32' src="img/changeuser.png"></a></li>
    <li><a href = "about.php" title="About application"><img width='32' height='32' src="img/help.png"></a></li> 
-   <li><a href = "pokus.php" title="Pokus"><img width='32' height='32' src="img/help.png"></a></li>  
+   <li><a href = "pokus.php" title="Pokus"><img width='32' height='32' src="img/spinner.gif"></a></li>  
    <li><div id="google_translate_element"></div></li>
 </ul>
 </div>

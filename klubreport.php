@@ -43,7 +43,7 @@ if($result = mysqli_query($link, $sql)){
 <hr>
  <div align = "center">
          <div style = "width:350px; border: solid 1px #333333; " align = "left">
-            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Report transakčních poplatků</b></div>
+            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Výběr období</b></div>
         
             <div style = "margin:15px">
                <form action = "" method = "post">
@@ -75,7 +75,51 @@ if($result = mysqli_query($link, $sql)){
             </div>
          </div>
       </div>
+<?php 
+
+# tady bude pod vyberem casu pro kazdeho neco jineho, admin bude mit seznam smazanych provizi, aby videl, jestli ho kluby proste neberou na hul a superuser tu bude mit pichacky
 
 
+if ($_SESSION['admin']=='Y' && isset($_POST['mesic'])) {
+echo "<hr>";
+echo "<h3 align='center'>Report smazaných provizí</h3>";
+$sql = "select k.klub,b.username as barman,t.username as umelec,p.polozka_id,p.popis,p.cas,p.castka,p.mena,u.username as smazal,p.smazano from provizedel p join kluby k on klub_id=k.id join users u on p.smazal=u.id join users b on p.barman_id=b.id join users t on p.umelec_id=t.id where month(p.cas)=".$mesic." and year(cas)=".$rok." order by klub,smazano";
+
+#echo $sql;
+$result = mysqli_query($link,$sql);                                         
+if($result = mysqli_query($link, $sql)){                              
+  if(mysqli_num_rows($result) > 0){
+		echo "<table align='center' border=0><tr style='background-color: #e0e0eb'><th>klub</th><th>barman</th><th>umělec</th><th>popis</th><th>natíženo</th><th>částka</th><th>měna</th><th>smazal</th><th>smazáno</th></tr>";
+    while($row = mysqli_fetch_array($result)){                              
+			echo "<tr><td>".$row['klub']."</td><td>".$row['barman']."</td><td>".$row['umelec']."</td><td>".$row['popis']."</td><td>".$row['cas']."</td><td>".$row['castka']."</td><td>".$row['mena']."</td><td>".$row['smazal']."</td><td>".$row['smazano']."</td></tr>";
+    }
+  echo "</table>";
+	}
+}
+} #konec ifu     
+
+
+if ($_SESSION['admin']=='S' && isset($_POST['mesic'])) {
+echo "<hr>";
+echo "<h3 align='center'>Report docházky</h3>";
+#select u.username as umelec,p.cas,p.stav from pichacky p join users u on p.umelec_id=u.id;
+#| umelec         | cas                 | stav  |
+$sql = "select u.username as umelec,p.cas,p.stav from pichacky p join users u on p.umelec_id=u.id where month(p.cas)=".$mesic." and year(cas)=".$rok." order by u.username,cas";
+#select k.klub,b.username as barman,t.username as umelec,p.polozka_id,p.popis,p.cas,p.castka,p.mena,u.username as smazal,p.smazano from provizedel p join kluby k on klub_id=k.id join users u on p.smazal=u.id join users b on p.barman_id=b.id join users t on p.umelec_id=t.id where month(p.cas)=".$mesic." and year(cas)=".$rok." order by klub,smazano";
+
+#echo $sql;
+$result = mysqli_query($link,$sql);                                         
+if($result = mysqli_query($link, $sql)){                              
+  if(mysqli_num_rows($result) > 0){
+		echo "<table align='center' border=0><tr style='background-color: #e0e0eb'><th>umělec</th><th>čas</th><th>stav</th></tr>";
+    while($row = mysqli_fetch_array($result)){                              
+			echo "<tr><td>".$row['umelec']."</td><td>".$row['cas']."</td><td>".$row['stav']."</td></tr>";
+    }
+  echo "</table>";
+	}
+}
+} #konec ifu     
+
+?>
    </body>
 </html>

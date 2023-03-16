@@ -20,7 +20,7 @@ $celkem='select count(*) as celkem from '.$table.$w;
  
 mysqli_close($link);
 ?>
-<p>Vítejte v naší aplikaci, která je určena ke správě odměn a provizí pro tanečnice, hostesky a jiné umělce v nočních klubech.</p>
+<p>Vítejte v naší aplikaci GASTRA v 1.0 beta, která je určena ke správě odměn a provizí pro tanečnice, hostesky a jiné umělce v nočních klubech.</p>
 <br>
 <p> V tuto chvíli aplikaci testujeme, proto buďte prosím shovívaví, pokud se objeví nějaká chyba nebo něco nebude fungovat.
 <br>

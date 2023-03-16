@@ -4,6 +4,9 @@
 	$navrat=FALSE;
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		if ($_SESSION['admin'] == 'Y' || $_SESSION['admin'] == 'S') {
+			$sqli = "insert into provizedel(id,klub_id,barman_id,umelec_id,polozka_id,popis,cas,castka,mena,doklad,smazal,smazano) select id,klub_id,barman_id,umelec_id,polozka_id,popis,cas,castka,mena,doklad,".$_SESSION['user_id'].",now() from provize where id=".$_GET['id'];
+	      echo insert($sqli); 
+
 			$sql = "delete from provize where id = ".$_GET['id'];
 			if ($link->query($sql) === TRUE) {
 				$_SESSION['error'] =  "Record deleted successfully";
