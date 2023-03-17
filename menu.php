@@ -5,19 +5,6 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="styles.css">
-   <script src="jquery-latest.min.js" type="text/javascript"></script>
-   <script src="script.js"></script>
-   <style>
-    body {	
-                        $background = appearance('menu','background');
-                        echo "background: url(\"".$background."\") no-repeat center center fixed;"; ?>
-                        background-color: #cccccc;
-                        -webkit-background-size: cover;
-                        -moz-background-size: cover;
-                        -o-background-size: cover;
-                        background-size: cover;
-    }
-   </style>
 </head>
 <body>
 <?php
@@ -37,7 +24,7 @@ session_start();
         var ajaxUrl = 'ajax.php';
         var urlPrefix = '';
 </script>
-<script type="text/javascript" src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <sub>&copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, LLF CZECH LIMITED&nbsp;&reg;&nbsp;&nbsp;All rights reserved.</sub>.
 <div id='cssmenu'>
 <ul>
@@ -80,13 +67,8 @@ if(isset($_SESSION['login_user']) ) { echo "<li ><b><i><a href='userpwd.php?id="
   <?php } ?>
    <li><a href = "logout.php" title="Login / Logout"><img width='32' height='32' src="img/changeuser.png"></a></li>
    <li><a href = "about.php" title="About application"><img width='32' height='32' src="img/help.png"></a></li> 
-   <li><a href = "pokus.php" title="Pokus"><img width='32' height='32' src="img/spinner.gif"></a></li>  
    <li><div id="google_translate_element"></div></li>
 </ul>
 </div>
-<?php
-if (isset($_SESSION['error'])) {echo $_SESSION['error'];
-$_SESSION['error'] = ""; }
-?>
 </body>
 <html>

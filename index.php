@@ -2,23 +2,21 @@
 <?php
 $hlavicka="Hlavni strana";
 include('head.php');
-include ('kolackologin.php')
-	;?>
+include ('kolackologin.php')?>
+
+<head>
+<style>
+    body {	
+                        background: url("img/logo.jpeg") no-repeat center center fixed;    }
+   </style>
+<head>
 
 <body>
+
+
 <?php 
 include('menu.php'); 
 
-$table='vchody';
-if( isset($_GET['sql']) ){
-$w=" ".htmlspecialchars($_GET["sql"]);
-} else {
-$w='';
-}     
-
-$celkem='select count(*) as celkem from '.$table.$w;
- 
-mysqli_close($link);
 ?>
 <p>Vítejte v naší aplikaci GASTRA v 1.0 beta, která je určena ke správě odměn a provizí pro tanečnice, hostesky a jiné umělce v nočních klubech.</p>
 <br>

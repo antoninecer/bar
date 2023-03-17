@@ -3,6 +3,10 @@
 $hlavicka="Prihlasovaci obrazovaka";
 include('head.php');
 ?>   
+
+
+
+
 <?php
    require_once('./inc/connect.php');
 	 
@@ -77,18 +81,13 @@ include('menu.php');
       }
    }
 ?>
-		<style>
-			body {
-				background-color: #cccccc;
-			}	
-		</style>
    </head>
    
  <!-- <body bgcolor = "#FFFFFF"> -->
 <br>	
       <div align = "center">
          <div style = "width:450px; border: solid 1px #333333; " align = "left">
-            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Login</b></div>
+            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Přihlášení do GASTRA</b></div>
 				
             <div style = "margin:30px">
 
