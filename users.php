@@ -22,21 +22,49 @@
    
 <?php
 	include('head.php');
+# nastaveni pole klubu
+ $kluby=[];
+ $w=""; 
+ if ($_SESSION['admin']=='S') { $w=" where zkratka='".$_SESSION['klub']."'"; }
+ if ($_SESSION['admin']=='Y') { array_push($kluby,""); }
+ $sqlkluby="select distinct(zkratka) as klub from kluby".$w." order by zkratka";
+ $result = $link->query($sqlkluby);
+ if ($result->num_rows > 0) {
+   while($row = $result->fetch_assoc()) {
+     array_push($kluby,$row['klub']);
+    }
+ }
+
+
+
 ?>
 <body>   
       <?php include('menu.php'); ?>
-	  <h2 align="center">Uživatelské účty</h2>
-	   <?php
+	<table align='center'><tr><td><h2>Uživatelské účty</td>
+	<?php if ($_SESSION['admin'] == 'Y') {
+	 echo "<td vertical-align='middle'>Klub:</td><td vertical-align='middle'><form action = '' method = 'post'><select name='klub'>";
+									foreach ($kluby as $klub) {
+										echo "<option value='".$klub."'>".$klub."</option>";
+									}	
+								echo "</select>	<input type='hidden' name='clubsel' value='clubsel'></td><td vertical-align='top'><input type = 'submit' value = 'Klub'/></form>";
+								echo "</td><td vertical-align='middle'><form action = '' method='post'><input type='hidden' name='clear' value='clear'><input type = 'submit' value = 'Ukaž vše'/></form></td>";
+								} 
+				echo "</tr></table></h2>";
+
 	   $radek = 0;
 	   echo "<table align='center' border=0>";
 	   echo "<tr style='background-color: #e0e0eb'><td>uživatel</td><td>klub</td><td>email</td><td>oprávnění</td><td>upravit</td>";
 	   if ($_SESSION['admin'] == 'Y' ||$_SESSION['admin'] == 'S' ) { echo "<td>smazat</td>"; }
 	   echo "</tr>";
   		$w=""; 
+		if (isset($_POST['clear'])) { $_POST = array(); }
+		if (isset($_POST['clubsel'])) { $w=" where club='".$_POST['klub']."'"; 
+			if ($_POST['clubsel']=='') { $w.=" or club is null"; }
+		}
 			
-		if ($_SESSION['admin']=='S') { $w="where club='".$_SESSION['klub']."'"; }
+		if ($_SESSION['admin']=='S') { $w="where club='".$_SESSION['klub']."' and admin !='Y'"; }
 
-	   $sql = "SELECT *  FROM users ".$w." order by username";
+	   $sql = "SELECT *  FROM users ".$w." order by club, username";
 	   #echo $sql;
 		$result = $link->query($sql);
 		if ($result->num_rows > 0) {
@@ -85,17 +113,6 @@
 				echo "</tr>";
 				}	
 		}
-		$kluby=[];
-
-  		$w=""; 
- 	   	if ($_SESSION['admin']=='S') { $w=" where zkratka='".$_SESSION['klub']."'"; }
- 	   	if ($_SESSION['admin']=='Y') { array_push($kluby,""); }
-		$sqlkluby="select distinct(zkratka) as klub from kluby".$w;
-		$result = $link->query($sqlkluby);
-                if ($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
-			array_push($kluby,$row['klub']);
-			}}
 		?> 
 	</table>
 	 <hr> 
