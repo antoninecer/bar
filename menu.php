@@ -30,7 +30,8 @@ session_start();
 <ul>
 			
 <?php 
-if(isset($_SESSION['login_user']) ) { echo "<li ><b><i><a href='userpwd.php?id=".$_SESSION['user_id']."'><img width='24' height='24' src='img/smalluser.png'></a>".$_SESSION['login_user']."</b></i></li> ";}
+if(isset($_SESSION['login_user']) ) { 
+	echo "<li ><b><i><p style='font-size:12px'><a href='userpwd.php?id=".$_SESSION['user_id']."'><img width='24' height='24' src='img/smalluser.png'></a>".$_SESSION['login_user']."</b><br>".kname($_SESSION['klub_id'])." ".fname($_SESSION['admin'])."</p></i></li> ";}
   echo "<li><a href='index.php' title='Domů'><img width='32' height='32' src='img/home.png'></a></li>";
   if(isset($_SESSION['admin']) ) {
 	  

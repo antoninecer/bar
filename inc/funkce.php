@@ -124,6 +124,27 @@ function fee($uid,$bid,$kid)
 } 
 
 
+function fname($i)
+{ 
+  $fname="";	
+	switch ($i) {
+    case 'U':
+      $fname="Umělec";
+      break;
+    case 'B':
+      $fname="Barman";
+      break;
+    case 'Y':
+      $fname="Administrátor";
+      break;
+    case 'S':
+      $fname="Super Uživatel";
+      break;
+     }
+  return $fname;
+} 
+
+
 function uname($uid)
 { 
   global $link;
@@ -139,6 +160,21 @@ function uname($uid)
   return $uname;
 } 
 
+
+function kname($kid)
+{ 
+  global $link;
+  $sql = "select zkratka from kluby where id=".$kid ;
+  $kname='';
+  if($result = mysqli_query($link, $sql)){
+    if(mysqli_num_rows($result) > 0){
+      while($row = mysqli_fetch_array($result)){
+        $kname=$row['0'];
+      }
+    }
+  }
+  return $kname;
+} 
 
 function select($sql)
 {

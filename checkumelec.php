@@ -9,7 +9,8 @@
 	if (!isset($klub) || isset($_SESSION['klub'])) { $klub=$_SESSION['klub']; }
 	$kid=kid($klub);
 	if (isset($_GET['klub'])){
-		echo "<h2>Umělec: <i>".$_SESSION['login_user']."</i> načetl Klub: <i>".$_SESSION['klub']."</i></h2>";
+		$klub=$_GET['klub'];
+		echo "<h2>Umělec: <i>".$_SESSION['login_user']."</i> načetl Klub: <i>".$klub."</i></h2>";
 	}
 	#}}}
 #  
